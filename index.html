@@ -67,8 +67,12 @@
             }
 
             if (downloadUrl) {
-                window.location.href = downloadUrl;
-                document.getElementById('message').innerText = 'Download akan segera dimulai...';
+                setTimeout(() => {
+                    window.location.href = downloadUrl;
+                }, 5000);
+                setTimeout(() => {
+                    document.getElementById('message').innerText = 'Download akan segera dimulai...';
+                }, 5000);
             } else {
                 document.getElementById('message').innerText = 'Perangkat Anda tidak didukung oleh aplikasi ini..';
             }
@@ -108,9 +112,9 @@
     <div class="main-container w-full">
         <p style="font-weight: bold;">Litika - Mentor AI</p>
         <img src="favicon.png" width="200px" height="auto" />
-        <p id="message">Mendeteksi versi APK yang tepat untuk perangkat Anda...</p>
-        <p style="margin-top: 10px">
-            Atau Download versi universal
+        <p id="message">Sedang menentukan versi APK yang tepat untuk perangkat Anda...</p>
+        <p style="margin-top: 20px">
+            Atau download versi universal
         </p>
         <a href="/universal/Litika.apk">
             <button class="download-btn">
