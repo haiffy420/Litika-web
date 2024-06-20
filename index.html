@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Litika - Mentor AI</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Poppins';
+            font-size: 22px;
+        }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function getArchitecture() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            if (/android/i.test(userAgent)) {
+                if (/arm64|aarch64/i.test(userAgent)) {
+                    console.log('arm64-v8a')
+                    return 'arm64-v8a';
+                } else if (/armeabi|armv7/i.test(userAgent)) {
+                    console.log('armeabi-v7a')
+                    return 'armeabi-v7a';
+                } else if (/x86_64/i.test(userAgent)) {
+                    console.log('x86_64')
+                    return 'x86_64';
+                } else if (/x86/i.test(userAgent)) {
+                    console.log('x86')
+                    return 'x86';
+                }
+            }
+            return null;
+        }
+
+        function redirectToCorrectAPK() {
+            const architecture = getArchitecture();
+            let downloadUrl;
+
+            switch (architecture) {
+                case 'arm64-v8a':
+                    downloadUrl = 'arm64/Litika.apk';
+                    break;
+                case 'armeabi-v7a':
+                    downloadUrl = 'armeabi/Litika.apk';
+                    break;
+                case 'x86_64':
+                    downloadUrl = 'x86_64/Litika.apk';
+                    break;
+                case 'x86':
+                    downloadUrl = 'x86/Litika.apk';
+                    break;
+                default:
+                    downloadUrl = 'universal/Litika.apk'; // Fallback APK
+                    break;
+            }
+
+            if (downloadUrl) {
+                window.location.href = downloadUrl;
+                document.getElementById('message').innerText = 'Download akan segera dimulai...';
+            } else {
+                document.getElementById('message').innerText = 'Perangkat Anda tidak didukung oleh aplikasi ini..';
+            }
+        }
+    </script>
+</head>
+
+<body onload="redirectToCorrectAPK()">
+    <div class="w-full h-screen flex flex-col items-center justify-center bg-[#18181b] gap-2 px-4">
+        <p class="text-white font-bold">Litika - Mentor AI</p>
+        <image src="favicon.png" class="w-24 h-24" />
+        <p id="message" class="text-center text-gray-300">Mendeteksi versi APK yang tepat untuk perangkat Anda...</p>
+    </div>
+</body>
+
+</html>
